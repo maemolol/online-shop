@@ -36,29 +36,129 @@ class Admin: public User {
                             int mchoice;
                             cout << "1. Modify name\n2. Modify surname\n3. Modify address\n4. Modify password\nPlease enter your choice: "; cin >> mchoice;
                             if(mchoice == 1) {
-                                while (userdb >> stored_id >> stored_name) {
-                                    string new_name;
-                                    cout << "Enter a new name: "; cin >> new_name;
-                                    stored_name = new_name;
+                                // Temporary variables to store modified data
+                                string new_name;
+                                string temp_line;  // Temporary variable to store the entire line
+
+                                // Create a temporary file to store modified data
+                                ofstream tempFile("temp_user_database.txt");
+
+                                // Loop through the userdb file
+                                while (userdb >> stored_id >> stored_name >> stored_surname >> stored_address >> stored_password) {
+                                    if (stored_id == id) {
+                                        cout << "Enter a new name: "; cin >> new_name;
+                                        // Update only the name
+                                        tempFile << stored_id << " " << new_name << " " << stored_surname << " " << stored_address << " " << stored_password << endl;
+                                    } else {
+                                        // Write unchanged data to the temporary file
+                                        tempFile << stored_id << " " << stored_name << " " << stored_surname << " " << stored_address << " " << stored_password << endl;
+                                    }
                                 }
+
+                                // Close the original file
+                                userdb.close();
+                                
+                                // Close the temporary file
+                                tempFile.close();
+
+                                // Remove the original file
+                                remove("User_database.txt");
+
+                                // Rename the temporary file to the original file
+                                rename("temp_user_database.txt", "User_database.txt");
                             } else if(mchoice == 2) {
-                                while(userdb >> stored_id >> stored_name >> stored_surname) {
-                                    string new_surname;
-                                    cout << "Enter a new surname: "; cin >> new_surname;
-                                    stored_surname = new_surname;
+                                // Temporary variables to store modified data
+                                string new_surname;
+                                string temp_line;  // Temporary variable to store the entire line
+
+                                // Create a temporary file to store modified data
+                                ofstream tempFile("temp_user_database.txt");
+
+                                // Loop through the userdb file
+                                while (userdb >> stored_id >> stored_name >> stored_surname >> stored_address >> stored_password) {
+                                    if (stored_id == id) {
+                                        cout << "Enter a new name: "; cin >> new_surname;
+                                        // Update only the name
+                                        tempFile << stored_id << " " << stored_name << " " << new_surname << " " << stored_address << " " << stored_password << endl;
+                                    } else {
+                                        // Write unchanged data to the temporary file
+                                        tempFile << stored_id << " " << stored_name << " " << stored_surname << " " << stored_address << " " << stored_password << endl;
+                                    }
                                 }
+
+                                // Close the original file
+                                userdb.close();
+                                
+                                // Close the temporary file
+                                tempFile.close();
+
+                                // Remove the original file
+                                remove("User_database.txt");
+
+                                // Rename the temporary file to the original file
+                                rename("temp_user_database.txt", "User_database.txt");
                             } else if(mchoice == 3) {
-                                while(userdb >> stored_id >> stored_name >> stored_surname >> stored_address) {
-                                    string new_address;
-                                    cout << "Enter a new address: "; cin >> new_address;
-                                    stored_address == new_address;
+                                // Temporary variables to store modified data
+                                string new_address;
+                                string temp_line;  // Temporary variable to store the entire line
+
+                                // Create a temporary file to store modified data
+                                ofstream tempFile("temp_user_database.txt");
+
+                                // Loop through the userdb file
+                                while (userdb >> stored_id >> stored_name >> stored_surname >> stored_address >> stored_password) {
+                                    if (stored_id == id) {
+                                        cout << "Enter a new address: "; cin >> new_address;
+                                        // Update only the name
+                                        tempFile << stored_id << " " << stored_name << " " << stored_surname << " " << new_address << " " << stored_password << endl;
+                                    } else {
+                                        // Write unchanged data to the temporary file
+                                        tempFile << stored_id << " " << stored_name << " " << stored_surname << " " << stored_address << " " << stored_password << endl;
+                                    }
                                 }
+
+                                // Close the original file
+                                userdb.close();
+                                
+                                // Close the temporary file
+                                tempFile.close();
+
+                                // Remove the original file
+                                remove("User_database.txt");
+
+                                // Rename the temporary file to the original file
+                                rename("temp_user_database.txt", "User_database.txt");
                             } else if(mchoice == 4) {
-                                while(userdb >> stored_id >> stored_name >> stored_surname >> stored_address >> stored_password) {
-                                    string new_password;
-                                    cout << "Enter a new password: "; cin >> new_password;
-                                    stored_password == new_password;
+                                // Temporary variables to store modified data
+                                string new_password;
+                                string temp_line;  // Temporary variable to store the entire line
+
+                                // Create a temporary file to store modified data
+                                ofstream tempFile("temp_user_database.txt");
+
+                                // Loop through the userdb file
+                                while (userdb >> stored_id >> stored_name >> stored_surname >> stored_address >> stored_password) {
+                                    if (stored_id == id) {
+                                        cout << "Enter a new name: "; cin >> new_password;
+                                        // Update only the name
+                                        tempFile << stored_id << " " << stored_name << " " << stored_surname << " " << stored_address << " " << new_password << endl;
+                                    } else {
+                                        // Write unchanged data to the temporary file
+                                        tempFile << stored_id << " " << stored_name << " " << stored_surname << " " << stored_address << " " << stored_password << endl;
+                                    }
                                 }
+
+                                // Close the original file
+                                userdb.close();
+                                
+                                // Close the temporary file
+                                tempFile.close();
+
+                                // Remove the original file
+                                remove("User_database.txt");
+
+                                // Rename the temporary file to the original file
+                                rename("temp_user_database.txt", "User_database.txt");
                             }
                         }
                     }
