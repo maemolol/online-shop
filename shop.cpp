@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "alan.cpp"
 
 using namespace std;
 
