@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include "alan.cpp"
 
 using namespace std;
 
@@ -24,17 +25,40 @@ class Admin: public User {
                 int choice;
                 cout << "1. Add user\n2. Modify user\n3. Delete user\nPlease enter your choice: "; cin >> choice;
                 if(choice == 1) {
-                    register_user();
+                    registerUser();
                 } else if(choice == 2) {
                     int id;
                     cout << "Enter ID of user: "; cin >> id;
                     int stored_id;
+                    string stored_name, stored_surname, stored_address, stored_password;
                     while (userdb >> stored_id ) {
                         if (stored_id == id) {
                             int mchoice;
                             cout << "1. Modify name\n2. Modify surname\n3. Modify address\n4. Modify password\nPlease enter your choice: "; cin >> mchoice;
                             if(mchoice == 1) {
-                                
+                                while (userdb >> stored_id >> stored_name) {
+                                    string new_name;
+                                    cout << "Enter a new name: "; cin >> new_name;
+                                    stored_name = new_name;
+                                }
+                            } else if(mchoice == 2) {
+                                while(userdb >> stored_id >> stored_name >> stored_surname) {
+                                    string new_surname;
+                                    cout << "Enter a new surname: "; cin >> new_surname;
+                                    stored_surname = new_surname;
+                                }
+                            } else if(mchoice == 3) {
+                                while(userdb >> stored_id >> stored_name >> stored_surname >> stored_address) {
+                                    string new_address;
+                                    cout << "Enter a new address: "; cin >> new_address;
+                                    stored_address == new_address;
+                                }
+                            } else if(mchoice == 4) {
+                                while(userdb >> stored_id >> stored_name >> stored_surname >> stored_address >> stored_password) {
+                                    string new_password;
+                                    cout << "Enter a new password: "; cin >> new_password;
+                                    stored_password == new_password;
+                                }
                             }
                         }
                     }
