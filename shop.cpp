@@ -15,7 +15,25 @@ class Warehouse {
 
          Warehouse();
 
-        void update_warehouse(Product product) {products.push_back(product);}
+        void update_warehouse() {
+            int choice;
+            cout << "1. Add product\n2. Modify product\n3. Delete product\nPlease enter your choice: "; cin >> choice;
+            switch (choice) {
+                case 3:
+                    string product_name;
+                    cout << "Enter in the name of the product: "; cin >> product_name;
+                    auto it = remove_if(products.begin(), products.end(),
+                        [&](const Product& Product) { return Product.product_name == product_name; });
+
+                    if (it != products.end()) {
+                        products.erase(it, products.end());
+                        cout << product_name << " removed from the cart." << endl;
+                    } 
+                    else {
+                        cout << product_name << " not found in the cart." << endl;
+                    }
+            }
+        }
 };
 
 class Admin: public User {
@@ -33,6 +51,8 @@ class Admin: public User {
                         registerUser();
                     case 2:
                         modifyUser();
+                    case 3:
+                        delUser();
                 }   
             }
         }
@@ -177,6 +197,19 @@ class Admin: public User {
             }
         }
 
+        void delUser() {
+            auto it = remove_if(User.begin(), User.end(),
+                [&](const User& User) { return Product.product_name == product_name; });
+
+            if (it != Products.end()) {
+                Products.erase(it, Products.end());
+                cout << product_name << " removed from the cart." << endl;
+            } 
+            else {
+                cout << product_name << " not found in the cart." << endl;
+            }
+        }
+
         void view_orders() {
             // also borked for now
             for(int i = 0; i < olen; i++) {
@@ -184,7 +217,8 @@ class Admin: public User {
             }
         }
         void update_warehouse() {
-            Warehouse::update_warehouse();
+            Warehouse warehouse;
+            warehouse.update_warehouse();
         }
 };
 
