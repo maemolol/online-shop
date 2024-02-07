@@ -206,3 +206,7 @@ class Payment {
             cout << "Payment type: " << payment_type << "\nAmount" << amount << endl;
         }
 };
+
+// Useful commands for makefile:
+// make(to compille)
+// make run, make push
