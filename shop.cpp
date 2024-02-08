@@ -4,6 +4,7 @@
 #include <fstream>
 #include <chrono>
 #include <thread>
+//#include "alan.cpp"
 
 using namespace std;
 using namespace std::this_thread;
@@ -19,19 +20,41 @@ class Warehouse {
             int choice;
             cout << "1. Add product\n2. Modify product\n3. Delete product\nPlease enter your choice: "; cin >> choice;
             switch (choice) {
-                case 3:
-                    string product_name;
-                    cout << "Enter in the name of the product: "; cin >> product_name;
-                    auto it = remove_if(products.begin(), products.end(),
-                        [&](const Product& Product) { return Product.product_name == product_name; });
+                case 1:
+                    int id;
+                    cout << "Enter a product ID to add: "; cin >> id;
+                    add_product(id, products);
+                case 2:
 
-                    if (it != products.end()) {
-                        products.erase(it, products.end());
-                        cout << product_name << " removed from the cart." << endl;
-                    } 
-                    else {
-                        cout << product_name << " not found in the cart." << endl;
-                    }
+                case 3:
+                    delete_product();
+            }
+        }
+        bool add_product(int id, vector<Product>& inv)) {
+            auto it = find_if(list.begin(), list.end(), [id](const Product& list) {
+                return list.product_id == id;
+            });
+
+            if (it != products.end()) {
+                inv.push_back(*it);
+                products.erase(it);
+                saveProducts();
+                return true;
+            }
+            return false;
+        }
+        void delete_product() {
+            string product_name;
+            cout << "Enter in the name of the product: "; cin >> product_name;
+            auto it = remove_if(products.begin(), products.end(),
+                [&](const Product& Product) { return Product.product_name == product_name; });
+
+            if (it != products.end()) {
+                products.erase(it, products.end());
+                cout << product_name << " removed from the warehouse." << endl;
+            } 
+            else {
+                cout << product_name << " not found in the warehouse." << endl;
             }
         }
 };
@@ -198,24 +221,49 @@ class Admin: public User {
         }
 
         void delUser() {
-            auto it = remove_if(User.begin(), User.end(),
-                [&](const User& User) { return Product.product_name == product_name; });
+            fstream userdb("User_database.txt");
+            int id;
+            cout << "Enter ID of user: "; cin >> id;
+            int stored_id;
+            string stored_name, stored_surname, stored_address, stored_password;
+            while (userdb >> stored_id ) {
+                if (stored_id == id) {
+                    string temp_line;  // Temporary variable to store the entire line
 
-            if (it != Products.end()) {
-                Products.erase(it, Products.end());
-                cout << product_name << " removed from the cart." << endl;
-            } 
-            else {
-                cout << product_name << " not found in the cart." << endl;
+                    // Create a temporary file to store modified data
+                    ofstream tempFile("temp_user_database.txt");
+
+                    // Loop through the userdb file
+                    while (userdb >> stored_id >> stored_name >> stored_surname >> stored_address >> stored_password) {
+                        if (stored_id == id) {
+                            tempFile << "" << endl;
+                        } else {
+                            // Write unchanged data to the temporary file
+                            tempFile << stored_id << " " << stored_name << " " << stored_surname << " " << stored_address << " " << stored_password << endl;
+                        }
+                    }
+
+                    // Close the original file
+                    userdb.close();
+                    
+                    // Close the temporary file
+                    tempFile.close();
+
+                    // Remove the original file
+                    remove("User_database.txt");
+
+                    // Rename the temporary file to the original file
+                    rename("temp_user_database.txt", "User_database.txt");
+                }
             }
         }
 
-        void view_orders() {
+        /* void view_orders() {
             // also borked for now
             for(int i = 0; i < olen; i++) {
                 cout << orderlist[i] << endl;
             }
-        }
+        } */
         void update_warehouse() {
             Warehouse warehouse;
             warehouse.update_warehouse();
