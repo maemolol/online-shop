@@ -10,6 +10,8 @@ using namespace std;
 using namespace std::this_thread;
 
 class Warehouse {
+    private:
+        vector<Product> list;
     public:
         // all aboard the breakage-mobile
          vector<Product> products;
@@ -30,7 +32,7 @@ class Warehouse {
                     delete_product();
             }
         }
-        bool add_product(int id, vector<Product>& inv)) {
+        bool add_product(int id, vector<Product>& inv) {
             auto it = find_if(list.begin(), list.end(), [id](const Product& list) {
                 return list.product_id == id;
             });
@@ -38,7 +40,7 @@ class Warehouse {
             if (it != products.end()) {
                 inv.push_back(*it);
                 products.erase(it);
-                saveProducts();
+                saveWarehouse();
                 return true;
             }
             return false;
@@ -56,6 +58,13 @@ class Warehouse {
             else {
                 cout << product_name << " not found in the warehouse." << endl;
             }
+        }
+        void saveWarehouse() {
+            ofstream file("Warehouse_database.txt");
+            for (const auto& product : products) {
+                file << product.toString() << endl;
+            }
+            file.close();
         }
 };
 
